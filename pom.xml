@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+
+    <repositories>
+        <repository>
+            <id>usethesource</id>
+            <url>https://nexus.usethesource.io/content/repositories/public/</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <rascal-version>0.18.2</rascal-version>
+    </properties>
+
+    <groupId>br.unb.cic</groupId>
+    <artifactId>rascal-fuzz</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.rascalmpl</groupId>
+                <artifactId>rascal-maven-plugin</artifactId>
+                <version>0.2.11</version>
+                <configuration>
+                    <bin>${project.build.outputDirectory}</bin>
+                    <srcs>
+                        <src>${project.basedir}/src</src>
+                    </srcs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>package</id>
+                        <phase>pre-package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>usethesource</id>
+            <url>https://nexus.usethesource.io/content/repositories/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.rascalmpl</groupId>
+            <artifactId>rascal</artifactId>
+            <version>${rascal-version}</version>
+        </dependency>
+    </dependencies>
+    </project>
