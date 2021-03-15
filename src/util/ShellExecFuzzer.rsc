@@ -1,8 +1,8 @@
 module util::ShellExecFuzzer
 
 import Prelude;
+import List;
 
 
 @javaClass{util.ShellExecFuzzer}
-@reflect{for stdout}
-java int createProcessAndWait(str cmd) throws IO; 
+java int createProcessAndWait(str cmd, list[str] args); 

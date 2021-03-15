@@ -5,6 +5,6 @@ import util::ShellExecFuzzer;
 
 
 public void main(str arg = "") {
-	int x = createProcessAndWait("/usr/bin/ld.bfd");
+	int x = createProcessAndWait("/usr/bin/cat", ["sdsds"]);
 	print("Fuzzing...<x>\n");
 }
