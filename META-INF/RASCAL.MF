@@ -3,6 +3,6 @@ Source: src
 Main-Module: Plugin
 Main-Function: main
 Courses: courses
-Project-Name: rascal_fuzz
+Project-Name: rascalfuzz
 Require-Libraries: 
 
