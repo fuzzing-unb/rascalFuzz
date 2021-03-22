@@ -1,4 +1,4 @@
-module util::Mutator
+module fuzzing::Mutator
 
 import Prelude;
 import util::Math;
@@ -52,4 +52,5 @@ void main(){
 	println(mutate("asdf"));
 	println(mutate("asdf"));
 	println(mutate("asdf"));
+	println(mutate(mutate("asdf")));
 }
