@@ -3,13 +3,16 @@ module util::Mutator
 import Prelude;
 import util::Math;
 
+/* TODO */
+
 tuple[str head, int splitPoint, str tail] randomStringSplit(str s){
 	splitPoint = arbInt(size(s));
 	return <substring(s,0,splitPoint), charAt(s, splitPoint), substring(s,splitPoint+1, size(s))>;
 }
 
-str pseudoFlipRandomChar(str s, int bitPos){
+str pseudoFlipRandomChar(str s, int maxChar){
 	splitString = randomStringSplit(s);
+	int bitPos = arbInt(floor(log(maxChar, 2))+1);
 	bitFlippedChar = stringChar(splitString.splitPoint + toInt(pow(2,bitPos)));
 	return splitString.head + bitFlippedChar + splitString.tail;
 }
