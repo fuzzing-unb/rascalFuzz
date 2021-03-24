@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.rascalmpl.interpreter.utils.RuntimeExceptionFactory;
 
 import io.usethesource.vallang.IInteger;
 import io.usethesource.vallang.IList;
@@ -20,7 +23,7 @@ public class ShellExecFuzzer {
 		this.vf = vf;
 	}
 		
-	public IInteger createProcessAndWait(IString cmd, IList args) {
+	public IInteger createProcessAndWait(IString cmd, IList args, IInteger timeout) {
 		//this.out = ctx.getOutPrinter();
 		
 		IInteger processReturnCode = null;
@@ -43,10 +46,22 @@ public class ShellExecFuzzer {
 		Process process;
 		try {
 			process = builder.start();
-			processReturnCode = vf.integer(process.waitFor());			
+			if (timeout.intValue() != 0) {
+				if (!process.waitFor(timeout.intValue(), TimeUnit.MINUTES))				
+					process.destroy();
+				else
+					processReturnCode = vf.integer(process.exitValue());					
+			} else {
+				processReturnCode = vf.integer(process.waitFor());					
+			}
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
+		
+		if (processReturnCode == null) {
+			throw RuntimeExceptionFactory.io("Timed out!");			
+		}
+		
 		return processReturnCode;
 	}
 }

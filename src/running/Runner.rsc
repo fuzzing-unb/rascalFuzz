@@ -29,14 +29,19 @@ RunnerResult PrintRunner(list[str] inp) {
 }
 
 alias ProgramRunnerArgs = tuple[list[str] inp, str program];
-ProgramRunnerArgs () helperProgramRunner(str seed, str cmd) =  ProgramRunnerArgs () { return <[mutate(seed)], cmd>; };
+ProgramRunnerArgs () helperMutator2ProgramRunner(str seed, str cmd) =  ProgramRunnerArgs () { return <[mutate(seed)], cmd>; };
 
 RunnerResult ProgramRunner(ProgramRunnerArgs () generator) {
   args = generator();
   seed = args.inp;
   cmd = args.program;
-    
-  ret = createProcessAndWait(cmd, seed);
+  
+  try    
+    ret = createProcessAndWait(cmd, seed, 1);
+  catch:
+    return <HANG(), seed>;
+        
+  println("Ret code <ret>");
   if (ret == 0) { 
     return <PASS(), seed>;
   } else if (ret != 0) {
@@ -49,5 +54,5 @@ RunnerResult ProgramRunner(ProgramRunnerArgs () generator) {
 
 public void main() {   
   compose(Runner(PrintRunner, ["Birolo", "Bozo"]));   
-  compose(Runner(ProgramRunner, createFuzzerMutatorForProgram("Birolo", "/usr/bin/echo"))); 
+  compose(Runner(ProgramRunner, helperMutator2ProgramRunner("Birolo", "/usr/bin/echo"))); 
 }
