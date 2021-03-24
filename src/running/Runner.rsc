@@ -1,4 +1,4 @@
-module util::Runner
+module running::Runner
 
 import Prelude;
 import util::ShellExecFuzzer;
@@ -29,13 +29,14 @@ RunnerResult PrintRunner(list[str] inp) {
 }
 
 alias ProgramRunnerArgs = tuple[list[str] inp, str program];
+ProgramRunnerArgs () helperProgramRunner(str seed, str cmd) =  ProgramRunnerArgs () { return <[mutate(seed)], cmd>; };
+
 RunnerResult ProgramRunner(ProgramRunnerArgs () generator) {
   args = generator();
   seed = args.inp;
   cmd = args.program;
     
   ret = createProcessAndWait(cmd, seed);
-  println("<ret>");
   if (ret == 0) { 
     return <PASS(), seed>;
   } else if (ret != 0) {
@@ -45,10 +46,8 @@ RunnerResult ProgramRunner(ProgramRunnerArgs () generator) {
   }
 }
 
-public void main() {
 
-  ProgramRunnerArgs () createFuzzerMutatorForProgram(str seed, str cmd) =  ProgramRunnerArgs () { return <[mutate(seed)], cmd>; };
-   
+public void main() {   
   compose(Runner(PrintRunner, ["Birolo", "Bozo"]));   
   compose(Runner(ProgramRunner, createFuzzerMutatorForProgram("Birolo", "/usr/bin/echo"))); 
 }
