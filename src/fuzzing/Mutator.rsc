@@ -38,7 +38,7 @@ str insertRandomChar(str s){
 	return splitString.head + randomChar + splitString.tail;
 }
 
-str mutate(str s){
+public str mutate(str s){
 	mutators = [
 		pseudoFlipRandomChar,
 		deleteRandomChar,
