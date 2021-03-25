@@ -5,7 +5,8 @@ import util::Math;
 
 /* TODO:
 	1) handle character encoding
-	2) actual bit flip, how to apply bitwise xor in Rascal?  
+	2) actual bit flip, how to apply bitwise xor in Rascal?
+	3) there is a bug in randomStringSplit when the input is an empty str.
 */
 
 int maxChar = 255;

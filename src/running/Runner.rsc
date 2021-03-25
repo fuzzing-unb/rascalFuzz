@@ -41,7 +41,6 @@ RunnerResult ProgramRunner(ProgramRunnerArgs () generator) {
   catch:
     return <HANG(), seed>;
         
-  println("Ret code <ret>");
   if (ret == 0) { 
     return <PASS(), seed>;
   } else if (ret != 0) {
