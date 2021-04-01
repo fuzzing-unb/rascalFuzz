@@ -48,10 +48,3 @@ public str mutate(str s){
 	randomMutator = mutators[arbInt(size(mutators))];
 	return randomMutator(s);	
 }
-
-void main(){
-	println(mutate("asdf"));
-	println(mutate("asdf"));
-	println(mutate("asdf"));
-	println(mutate(mutate("asdf")));
-}

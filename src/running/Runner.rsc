@@ -53,5 +53,6 @@ RunnerResult ProgramRunner(ProgramRunnerArgs () generator) {
 
 public void main() {   
   compose(Runner(PrintRunner, ["Birolo", "Bozo"]));   
-  compose(Runner(ProgramRunner, helperMutator2ProgramRunner("Birolo", "/usr/bin/echo"))); 
+  x = compose(Runner(ProgramRunner, helperMutator2ProgramRunner("Birolo", "/usr/bin/echo")));
+  println(x); 
 }

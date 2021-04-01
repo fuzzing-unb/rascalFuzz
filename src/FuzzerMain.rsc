@@ -3,7 +3,6 @@ module FuzzerMain
 import running::Runner;
 import util::Math;
 import IO;
-import List;
 import util::Benchmark;
 
 
