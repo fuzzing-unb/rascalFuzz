@@ -13,8 +13,8 @@ public void main(str arg = "") {
   start_time = realTime();
   compose(Runner(PrintRunner, ["Birolo", "Bozo"]));
   population = {"Birolo", "Bozo"};
-  RunnerResult \return = compose(Runner(ProgramRunner, helperMutator2ProgramRunner("Birolo", "vi")));
-  assert \return.result == HANG() : "Must hang"; 
+  //RunnerResult \return = compose(Runner(ProgramRunner, helperMutator2ProgramRunner("Birolo", "vi")));
+  //assert \return.result == HANG() : "Must hang"; 
         
   for(n <- [0 .. 9999]) {    
     
