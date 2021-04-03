@@ -6,14 +6,18 @@ import util::Math;
 /* TODO:
 	1) handle character encoding
 	2) actual bit flip, how to apply bitwise xor in Rascal?
-	3) there is a bug in randomStringSplit when the input is an empty str.
 */
 
 int maxChar = 255;
 
-tuple[str head, int splitPoint, str tail] randomStringSplit(str s){
-	splitPoint = arbInt(size(s));
-	return <substring(s,0,splitPoint), charAt(s, splitPoint), substring(s,splitPoint+1, size(s))>;
+ tuple[str head, int splitPoint, str tail] randomStringSplit(str s){
+	int stringSize = size(s);
+	if(stringSize > 0){
+		splitPoint = arbInt(stringSize);
+		return <substring(s,0,splitPoint), charAt(s, splitPoint), substring(s,splitPoint+1, stringSize)>;
+	} else {
+		return <"", 0, "">;
+	}
 }
 
 str pseudoFlipRandomChar(str s){
@@ -49,9 +53,25 @@ public str mutate(str s){
 	return randomMutator(s);	
 }
 
+str recursiveMutations(str s, int numMutations){
+	if(numMutations > 0){
+		return recursiveMutations(mutate(s), numMutations-1);
+	} else {
+		return mutate(s);
+	}
+}
+
+public str generateCandidate(set[str] population, int maxMutations){
+	str seedCandidate = getOneFrom(population);
+	return recursiveMutations(seedCandidate, 1+arbInt(maxMutations));
+}
+
 void main(){
-	println(mutate("asdf"));
-	println(mutate("asdf"));
-	println(mutate("asdf"));
-	println(mutate(mutate("asdf")));
+	println(deleteRandomChar(""));
+	println(recursiveMutations("asdfqwerty", 4));
+	set[str] population = {"Testando 123", "asdfqwerty", "foobar"};
+	println(generateCandidate(population, 5));
+	println(generateCandidate(population, 5));
+	println(generateCandidate(population, 5));
+	
 }

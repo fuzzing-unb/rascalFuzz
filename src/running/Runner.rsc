@@ -30,6 +30,8 @@ RunnerResult PrintRunner(list[str] inp) {
 
 alias ProgramRunnerArgs = tuple[list[str] inp, str program];
 ProgramRunnerArgs () helperMutator2ProgramRunner(str seed, str cmd) =  ProgramRunnerArgs () { return <[mutate(seed)], cmd>; };
+ProgramRunnerArgs () helperPopulationMutator2ProgramRunner(set[str] population, str cmd, int maxMutations) =  ProgramRunnerArgs () { return <[generateCandidate(population, maxMutations)], cmd>; };
+
 
 RunnerResult ProgramRunner(ProgramRunnerArgs () generator) {
   args = generator();
