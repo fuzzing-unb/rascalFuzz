@@ -7,7 +7,12 @@ test bool testPrintRunner() {
 	return \return.result == PASS(); 	
 }
 
+test bool testProgramRunnerMustPass() {   
+	RunnerResult \return = compose(Runner(ProgramRunner, helperMutator2ProgramRunner("Birolo", "/usr/bin/echo")));
+	return \return.result == PASS(); 	
+}
+
 test bool testProgramRunnerMustHang() {
 	RunnerResult \return = compose(Runner(ProgramRunner, helperMutator2ProgramRunner("Birolo", "vi")));
-	return \return.result == HANG(); 	
+	return \return.result == HANG();
 }

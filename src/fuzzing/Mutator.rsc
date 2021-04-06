@@ -1,6 +1,9 @@
 module fuzzing::Mutator
 
-import Prelude;
+import List;
+import Set;
+import String;
+import IO;
 import util::Math;
 
 /* TODO:

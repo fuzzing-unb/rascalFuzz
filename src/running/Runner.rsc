@@ -1,8 +1,9 @@
 module running::Runner
 
-import Prelude;
+
 import util::ShellExecFuzzer;
 import fuzzing::Mutator;
+import IO;
 
 data ReturnStatus 
   = PASS()
@@ -50,11 +51,4 @@ RunnerResult ProgramRunner(ProgramRunnerArgs () generator) {
   } else {
     return <UNRESOLVED(), seed>;  
   }
-}
-
-
-public void main() {   
-  compose(Runner(PrintRunner, ["Birolo", "Bozo"]));   
-  x = compose(Runner(ProgramRunner, helperMutator2ProgramRunner("Birolo", "/usr/bin/echo")));
-  println(x); 
 }

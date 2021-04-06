@@ -2,10 +2,9 @@ module FuzzerMain
 
 import running::Runner;
 import util::Math;
+import util::Benchmark;
 import IO;
 import Set;
-import util::Benchmark;
-
 
 public void main(str arg = "") {
 

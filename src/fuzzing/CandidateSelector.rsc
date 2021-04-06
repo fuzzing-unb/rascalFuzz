@@ -1,7 +1,7 @@
 module fuzzing::CandidateSelector
 
 import fuzzing::Mutator;
-import Prelude;
+import List;
 import util::Math;
 
 alias Seed = tuple[int weight, str input];
