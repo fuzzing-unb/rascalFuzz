@@ -3,6 +3,7 @@ module FuzzerMain
 import running::Runner;
 import running::ProgramRunner;
 import util::FuzzTraceExecution;
+import util::FileIO;
 import util::Math;
 import util::Benchmark;
 import IO;
@@ -18,17 +19,29 @@ tuple[real enlapsed, real fcps] endFuzzTime(int start_time, int runs) {
 }
 
 
-public void main(str arg) {
+public void main(str cmd, str inputFile = "") {
 
-  println(arg);
   start_time = startFuzzTime();
   initlogResult();
-  population = {"Birolo", "Bozo"};
+  
+  set[str] population = {"Birolo", "Bozo"};
+    
+  if (inputFile != "") {
+    population = {readText(inputFile)};
+    println("<population>");
+  }      
        
   for(runs <- [0 .. 9999]) {
-    ret = compose(Runner(ProgramRunner, helperPopulationMutator2ProgramRunner(population, arg, 2)));
+    RunnerResult ret;
+    if (inputFile != "") {
+      ret = compose(Runner(ProgramRunner, helperPopulationMutator2ProgramRunnerFile(population, cmd, 16, runs)));
+      population += readText(ret[1][0]);      
+    } else {
+      ret = compose(Runner(ProgramRunner, helperPopulationMutator2ProgramRunner(population, cmd, 2)));
+      population += ret[1][0];      
+    }
+          
     logResult(ret, runs);
-    population += ret[1][0];
     timer = endFuzzTime(start_time, runs); 
     println("[<timer.enlapsed>s] cases <runs> | fcps <timer.fcps>");
   } 

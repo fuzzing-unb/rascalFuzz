@@ -2,6 +2,7 @@ module running::ProgramRunner
 
 import running::Runner;
 import fuzzing::Mutator;
+import util::FileIO;
 import util::ShellExecFuzzer;
 import Exception;
 
@@ -16,6 +17,14 @@ ProgramRunnerArgs () helperMutator2ProgramRunner(str seed, str cmd) =
 ProgramRunnerArgs () helperPopulationMutator2ProgramRunner(set[str] population, str cmd, int maxMutations) = 
 	ProgramRunnerArgs () { return <[generateCandidate(population, maxMutations)], cmd>; };
 
+ProgramRunnerArgs () helperPopulationMutator2ProgramRunnerFile(set[str] population, str cmd, int maxMutations, int run) = 
+	ProgramRunnerArgs () {
+		out = "/tmp/<cmd>:popMutator:<run>";
+		write(out, generateCandidate(population, maxMutations));	
+		return <[out], cmd>; 
+	};
+
+	
 RunnerResult ProgramRunner(ProgramRunnerArgs () generator) {
   args = generator();
   seed = args.inp;
