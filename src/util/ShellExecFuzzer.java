@@ -42,9 +42,12 @@ public class ShellExecFuzzer {
 			argsList.add(cmd.getValue());
 		}
 					 
+		
 		ProcessBuilder builder = new ProcessBuilder(argsList);
 		Process process;
+		
 		try {
+			//Process process = Runtime.getRuntime().exec(argsList.toArray(new String[argsList.size()]));			
 			process = builder.start();
 			if (timeout.intValue() != 0) {
 				if (!process.waitFor(timeout.intValue(), TimeUnit.MINUTES))				
@@ -55,11 +58,12 @@ public class ShellExecFuzzer {
 				processReturnCode = vf.integer(process.waitFor());					
 			}
 		} catch (IOException | InterruptedException e) {
+			//TODO: bug here, if the input has null character in command whe get Exception. 
 			e.printStackTrace();
 		}
 		
 		if (processReturnCode == null) {
-			throw RuntimeExceptionFactory.io("Timed out!");			
+			throw RuntimeExceptionFactory.io("Timed out!");
 		}
 		
 		return processReturnCode;

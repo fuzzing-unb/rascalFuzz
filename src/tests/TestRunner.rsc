@@ -1,6 +1,8 @@
 module tests::TestRunner
 
 import running::Runner;
+import running::ProgramRunner;
+import running::PrintRunner;
 
 test bool testPrintRunner() {
 	RunnerResult \return = compose(Runner(PrintRunner, ["Birolo", "Bozo"]));
